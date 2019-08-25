@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar mode="ios">
+    <ion-title>
+      Customers
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="selection-page form-center">
+  <form #customer="ngForm" (ngSubmit)="_searchOrders(customer)">
+    <ion-list lines="none">
+      <ion-radio-group [(ngModel)]="_customerFilterData.customerId" name="customerId">
+        <ion-list-header>
+          <ion-label>Please select a customer</ion-label>
+        </ion-list-header>
+        <ion-item *ngFor="let customer of _customersList">
+          <ion-label>{{customer?.name}}</ion-label>
+          <ion-radio required slot="start" [value]="customer?.id"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </ion-list>
+    <ion-list>
+      <ion-list-header>
+        <ion-label>Please select start and end date</ion-label>
+      </ion-list-header>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="6">
+            <ion-item>
+              <ion-label position="floating">Start Date
+                <ion-icon name="calendar"></ion-icon>
+              </ion-label>
+              <ion-datetime required displayFormat="DD/MM/YYYY" min="2018-08-30" max="2020-12-31"
+                [(ngModel)]="_customerFilterData.startDate" name="startDate"></ion-datetime>
+            </ion-item>
+          </ion-col>
+          <ion-col size="6">
+            <ion-item>
+              <ion-label position="floating">End Date
+                <ion-icon name="calendar"></ion-icon>
+              </ion-label>
+              <ion-datetime required displayFormat="DD/MM/YYYY" min="2018-08-30" max="2020-12-31"
+                [(ngModel)]="_customerFilterData.endDate" name="endDate"></ion-datetime>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-list>
+    <ion-button type="submit" expand="block">Search Orders</ion-button>
+  </form>
+</ion-content>

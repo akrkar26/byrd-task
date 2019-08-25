@@ -1,17 +1,19 @@
 import { IonicModule } from '@ionic/angular';
-import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Tab3Page } from './tab3.page';
+
+import { TabsPageRoutingModule } from './search.router.module';
+
+import { SearchPage } from './search.page';
 
 @NgModule({
   imports: [
     IonicModule,
     CommonModule,
     FormsModule,
-    RouterModule.forChild([{ path: '', component: Tab3Page }])
+    TabsPageRoutingModule
   ],
-  declarations: [Tab3Page]
+  declarations: [SearchPage]
 })
-export class Tab3PageModule {}
+export class SearchPageModule {}
