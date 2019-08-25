@@ -38,10 +38,14 @@ export class OrdersPage implements OnInit {
 
   private _loadOrders(filterData: CustomerFormData) {
 
-    this._service.getOrders(filterData.customerId, filterData.startDate, filterData.endDate).subscribe((orders) => {
-      this._orderList = orders;
-      this._prepareData(filterData);
-    });
+    try {
+      this._service.getOrders(filterData.customerId, filterData.startDate, filterData.endDate).subscribe((orders) => {
+        this._orderList = orders;
+        this._prepareData(filterData);
+      });
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   private _prepareData(filterData: CustomerFormData) {

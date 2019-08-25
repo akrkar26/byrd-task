@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class CustomerService {
 
   public getCustomers(): Observable<any> {
 
-    const url = `https://private-anon-84c1cc8157-byrd1.apiary-mock.com/customers`;
+    const url = `${environment.CUSTOMER_URL}`;
 
     return this._http.get(url);
   }
@@ -19,7 +20,7 @@ export class CustomerService {
   public getOrders(customerId: string, startDate: string, endDate: string): Observable<any> {
 
     // tslint:disable-next-line:max-line-length
-    const url = `https://private-anon-84c1cc8157-byrd1.apiary-mock.com/orders/${customerId}?start_date=${startDate}&end_date=${endDate}`;
+    const url = `${environment.ORDERS_URL}${customerId}?start_date=${startDate}&end_date=${endDate}`;
 
     return this._http.get(url);
   }

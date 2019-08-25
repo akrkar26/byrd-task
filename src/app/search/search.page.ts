@@ -22,22 +22,28 @@ export class SearchPage {
   private _customerFilterData: CustomerFormData = {} as CustomerFormData;
 
   constructor(private _service: CustomerService,
-              private _router: Router, private _altCtrl: AlertController,
-              private _storage: Storage) {
+    private _router: Router, private _altCtrl: AlertController,
+    private _storage: Storage) {
 
     this._loadCustomers();
   }
 
   private _loadCustomers() {
 
-    this._service.getCustomers().subscribe((customers) => {
-      this._customersList = customers;
-    });
+    try {
+      this._service.getCustomers().subscribe((customers) => {
+        this._customersList = customers;
+      });
+    } catch (error) {
+      console.error(error);
+    }
 
     this._storage.get('customer').then((cust) => {
       if (cust) {
         this._customerFilterData = cust;
       }
+    }).catch(() => {
+      console.error('Storage not available');
     });
   }
 
@@ -45,7 +51,7 @@ export class SearchPage {
 
     if (customer && customer.valid) {
       this._storage.set('customer', this._customerFilterData);
-      this._router.navigate(['/orders'], { queryParams: { filterData: JSON.stringify(this._customerFilterData) }});
+      this._router.navigate(['/orders'], { queryParams: { filterData: JSON.stringify(this._customerFilterData) } });
     } else {
       this._alertUser();
     }
